@@ -13,9 +13,9 @@ dependencies {
         api 'org.king.plataformaConsumer2:plataformaConsumer2:1.0-SNAPSHOT'
         api 'org.king.plataformaConsumer3:plataformaConsumer3:1.0-SNAPSHOT'
         api 'org.king.plataformaConsumer4:plataformaConsumer4:1.0-SNAPSHOT'
-        api 'org.king.plataformaConsumer5:plataformaConsumer5:1.0-SNAPSHOT'
-        api 'org.king.plataforma-bom:plataforma-bom:1.0-SNAPSHOT'     
+        api 'org.king.plataformaConsumer5:plataformaConsumer5:1.0-SNAPSHOT'        
     }
+    api(platform('org.king.plataforma-bom:plataforma-bom:1.0.0-SNAPSHOT'))
 }
 
 group = 'org.king.plataforma-ecosystem-bom'
