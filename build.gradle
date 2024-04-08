@@ -1,25 +1,32 @@
 plugins {
     id 'java-platform'
     id 'maven-publish'
+    id "com.sidneysimmons.gradle-plugin-external-properties" version "2.0.1"        
 }
 
 javaPlatform {
     allowDependencies()
 }
 
+externalProperties {
+    propertiesFileResolver file("versions.properties")
+}
+
 dependencies {
     constraints {
-        api 'org.king.plataformaConsumer1:plataformaConsumer1:1.0-SNAPSHOT'
-        api 'org.king.plataformaConsumer2:plataformaConsumer2:1.0-SNAPSHOT'
-        api 'org.king.plataformaConsumer3:plataformaConsumer3:1.0-SNAPSHOT'
-        api 'org.king.plataformaConsumer4:plataformaConsumer4:1.0-SNAPSHOT'
-        api 'org.king.plataformaConsumer5:plataformaConsumer5:1.0-SNAPSHOT'        
+        api "org.king.plataformaConsumer1:plataformaConsumer1:${props.get('plataforma-consumer-1')}"
+        api "org.king.plataformaConsumer2:plataformaConsumer2:${props.get('plataforma-consumer-2')}"
+        api "org.king.plataformaConsumer3:plataformaConsumer3:${props.get('plataforma-consumer-3')}"
+        api "org.king.plataformaConsumer4:plataformaConsumer4:${props.get('plataforma-consumer-4')}"
+        api "org.king.plataformaConsumer5:plataformaConsumer5:${props.get('plataforma-consumer-5')}"        
     }
-    api(platform('org.king.plataforma-bom:plataforma-bom:1.0.0-SNAPSHOT'))
+    api(platform("org.king.plataforma-bom:plataforma-bom:${props.get('plataforma-bom')}"))
 }
 
 group = 'org.king.plataforma-ecosystem-bom'
-version = '1.0.0-SNAPSHOT'
+version = "1.0.0-SNAPSHOT"
+
+apply plugin: "com.dipien.semantic-version"
 
 publishing {
     publications {
@@ -35,6 +42,19 @@ publishing {
                 username project.repoUser
                 password project.repoPassword
             }
-        }
+        }        
+    }
+}
+
+
+task showVersionProps {    
+    doLast {
+        println "plataforma-consumer-1=${props.get('plataforma-consumer-1')}"
+        println "plataforma-consumer-2=${props.get('plataforma-consumer-2')}"
+        println "plataforma-consumer-3=${props.get('plataforma-consumer-3')}"
+        println "plataforma-consumer-4=${props.get('plataforma-consumer-4')}"
+        println "plataforma-consumer-5=${props.get('plataforma-consumer-5')}"
+        println "plataforma-bom=${props.get('plataforma-bom')}"
+        println "version=${version}"
     }
 }
